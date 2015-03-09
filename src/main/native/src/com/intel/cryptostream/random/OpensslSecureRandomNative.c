@@ -33,7 +33,7 @@
 #include <windows.h>
 #endif
  
-#include "com_intel_cryptostream_random_OpensslSecureRandom.h"
+#include "OpensslSecureRandomNative.h"
 
 #ifdef UNIX
 static void * (*dlsym_CRYPTO_malloc) (int, const char *, int);

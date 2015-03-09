@@ -18,15 +18,23 @@ $(TARGET)/jni-classes/com/intel/cryptostream/OpensslCipherNative.class : $(SRC)/
 	@mkdir -p $(TARGET)/jni-classes
 	$(JAVAC) -source 1.6 -target 1.6 -d $(TARGET)/jni-classes -sourcepath $(SRC) $<
 
+$(TARGET)/jni-classes/com/intel/cryptostream/random/OpensslSecureRandomNative.class : $(SRC)/com/intel/cryptostream/random/OpensslSecureRandomNative.java
+	@mkdir -p $(TARGET)/jni-classes
+	$(JAVAC) -source 1.6 -target 1.6 -d $(TARGET)/jni-classes -sourcepath $(SRC) $<
+
 $(TARGET)/jni-classes/com/intel/cryptostream/OpensslCipherNative.h: $(TARGET)/jni-classes/com/intel/cryptostream/OpensslCipherNative.class
 	$(JAVAH) -force -classpath $(TARGET)/jni-classes -o $@ com.intel.cryptostream.OpensslCipherNative
+
+$(TARGET)/jni-classes/com/intel/cryptostream/random/OpensslSecureRandomNative.h: $(TARGET)/jni-classes/com/intel/cryptostream/random/OpensslSecureRandomNative.class
+	$(JAVAH) -force -classpath $(TARGET)/jni-classes -o $@ com.intel.cryptostream.random.OpensslSecureRandomNative
 
 $(CRYPTOSTREAM_OUT)/OpensslCipherNative.o : $(SRC_NATIVE)/com/intel/cryptostream/OpensslCipherNative.c $(TARGET)/jni-classes/com/intel/cryptostream/OpensslCipherNative.h  
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(CRYPTOSTREAM_OUT)/OpensslSecureRandom.o :
+$(CRYPTOSTREAM_OUT)/OpensslSecureRandom.o : $(SRC_NATIVE)/com/intel/cryptostream/random/OpensslSecureRandomNative.c $(TARGET)/jni-classes/com/intel/cryptostream/random/OpensslSecureRandomNative.h
 	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(CRYPTOSTREAM_OUT)/$(LIBNAME): $(CRYPTOSTREAM_OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $+ $(LINKFLAGS) 
@@ -45,7 +53,6 @@ NATIVE_DLL:=$(NATIVE_DIR)/$(LIBNAME)
 cryptostream-jar-version:=cryptostream-$(shell perl -npe "s/version in ThisBuild\s+:=\s+\"(.*)\"/\1/" version.sbt | sed -e "/^$$/d")
 
 native: $(NATIVE_DLL)
-	less $^
 
 cryptostream: native $(TARGET)/$(cryptostream-jar-version).jar
 

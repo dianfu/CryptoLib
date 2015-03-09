@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
- 
+
 #include "OpensslCipherNative.h"
 
 #ifdef UNIX
@@ -352,31 +352,4 @@ JNIEXPORT void JNICALL Java_com_intel_cryptostream_OpensslCipher_clean
   if (context) {
     dlsym_EVP_CIPHER_CTX_free(context);
   }
-}
-
-JNIEXPORT jstring JNICALL Java_com_intel_cryptostream_OpensslCipher_getLibraryName
-    (JNIEnv *env, jclass clazz) 
-{
-#ifdef UNIX
-  if (dlsym_EVP_CIPHER_CTX_init) {
-    Dl_info dl_info;
-    if(dladdr(
-        dlsym_EVP_CIPHER_CTX_init,
-        &dl_info)) {
-      return (*env)->NewStringUTF(env, dl_info.dli_fname);
-    }
-  }
-
-  return (*env)->NewStringUTF(env, HADOOP_OPENSSL_LIBRARY);
-#endif
-
-#ifdef WINDOWS
-  LPWSTR filename = NULL;
-  GetLibraryName(dlsym_EVP_CIPHER_CTX_init, &filename);
-  if (filename != NULL) {
-    return (*env)->NewString(env, filename, (jsize) wcslen(filename));
-  } else {
-    return (*env)->NewStringUTF(env, "Unavailable");
-  }
-#endif
 }

@@ -2,18 +2,18 @@ import SonatypeKeys._
 
 sonatypeSettings
 
-name := "snappy-java"
+name := "cryptostream"
 
-organization := "org.xerial.snappy" 
+organization := "com.intel.cryptostream" 
 
-organizationName := "xerial.org"
+organizationName := "intel.com"
 
-description  := "snappy-java: A fast compression/decompression library"
+description  := "cryptostream: A fast encryption/decryption library"
 
-profileName := "org.xerial" 
+profileName := "com.intel" 
 
 pomExtra := {
-   <url>https://github.comm/xerial/snappy-java</url>
+   <url>https://github.comm/dinafu/CryptoLib</url>
    <licenses>
        <license>
            <name>The Apache Software License, Version 2.0</name>
@@ -23,27 +23,27 @@ pomExtra := {
     </licenses>
     <developers>
         <developer>
-            <id>leo</id>
-            <name>Taro L. Saito</name>
-            <email>leo@xerial.org</email>
-            <organization>Xerial Project</organization>
+            <id>dianfu</id>
+            <name>Dian Fu</name>
+            <email>dian.fu@intel.com</email>
+            <organization>CryptoStream Project</organization>
             <roles>
                 <role>Architect</role>
                 <role>Project Manager</role>
                 <role>Chief Developer</role>
             </roles>
-            <timezone>+9</timezone>
+            <timezone>+8</timezone>
         </developer>
     </developers>
     <issueManagement>
         <system>GitHub</system>
-        <url>http://github.com/xerial/snappy-java/issues/list</url>
+        <url>http://github.com/dianfu/CryptoLib/issues/list</url>
     </issueManagement>
     <inceptionYear>2011</inceptionYear>
     <scm>
-        <connection>scm:git@github.com:xerial/snappy-java.git</connection>
-        <developerConnection>scm:git:git@github.com:xerial/snappy-java.git</developerConnection>
-        <url>git@github.com:xerial/snappy-java.git</url>
+        <connection>scm:git@github.com:dianfu/CryptoLib.git</connection>
+        <developerConnection>scm:git:git@github.com:dianfu/CryptoLib.git</developerConnection>
+        <url>git@github.com:dianfu/CryptoLib.git</url>
     </scm>
 }
 
@@ -70,39 +70,8 @@ libraryDependencies ++= Seq(
    "org.xerial" % "xerial-core" % "3.2.3" % "test",
    "org.scalatest" % "scalatest_2.11" % "2.2.0" % "test",
    "org.osgi" % "org.osgi.core" % "4.3.0" % "provided",
-   "com.novocode" % "junit-interface" % "0.10" % "test"
-)
-
-osgiSettings
-
-
-OsgiKeys.exportPackage := Seq("org.xerial.snappy", "org.xerial.snappy.buffer")
-
-OsgiKeys.bundleSymbolicName := "org.xerial.snappy.snappy-java"
-
-OsgiKeys.bundleActivator := Option("org.xerial.snappy.SnappyBundleActivator")
-
-OsgiKeys.importPackage := Seq("""org.osgi.framework;version="[1.5,2)"""")
-
-OsgiKeys.additionalHeaders := Map(
-  "Bundle-NativeCode" -> Seq(
-"com/intel/cryptostream/native/Windows/x86_64/cryptostream.dll;osname=win32;processor=x86-64",
-"com/intel/cryptostream/native/Windows/x86/cryptostream.dll;osname=win32;processor=x86",
-"com/intel/cryptostream/native/Mac/x86/libcryptostream.jnilib;osname=macosx;processor=x86",
-"com/intel/cryptostream/native/Mac/x86_64/libcryptostream.jnilib;osname=macosx;processor=x86-64",
-"com/intel/cryptostream/native/Linux/x86_64/libcryptostream.so;osname=linux;processor=x86-64",
-"com/intel/cryptostream/native/Linux/x86/libcryptostream.so;osname=linux;processor=x86",
-"com/intel/cryptostream/native/Linux/aarch64/libcryptostream.so;osname=linux;processor=aarch64",
-"com/intel/cryptostream/native/Linux/arm/libcryptostream.so;osname=linux;processor=arm",
-"com/intel/cryptostream/native/Linux/ppc64/libcryptostream.so;osname=linux;processor=ppc64",
-"com/intel/cryptostream/native/Linux/ppc64le/libcryptostream.so;osname=linux;processor=ppc64le",
-"com/intel/cryptostream/native/AIX/ppc64/libcryptostream.a;osname=aix;processor=ppc64",
-"com/intel/cryptostream/native/SunOS/x86/libcryptostream.so;osname=sunos;processor=x86",
-"com/intel/cryptostream/native/SunOS/x86_64/libcryptostream.so;osname=sunos;processor=x86-64",
-"com/intel/cryptostream/native/SunOS/sparc/libcryptostream.so;osname=sunos;processor=sparc"
-).mkString(","),
- "Bundle-DocURL" -> "http://www.xerial.org/",
- "Bundle-License" -> "http://www.apache.org/licenses/LICENSE-2.0.txt",
- "Bundle-ActivationPolicy" -> "lazy",
- "Bundle-Name" -> "snappy-java: A fast compression/decompression library"
+   "com.novocode" % "junit-interface" % "0.10" % "test",
+   "com.google.guava" % "guava" % "11.0.2" % "compile",
+   "commons-logging" % "commons-logging" % "1.1.3",
+   "org.slf4j" % "slf4j-api" % "1.7.10"
 )

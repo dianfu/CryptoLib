@@ -51,7 +51,7 @@ public class OpensslSecureRandom extends Random {
     if (NativeCodeLoader.isNativeCodeLoaded() &&
         NativeCodeLoader.buildSupportsOpenssl()) {
       try {
-        initSR();
+        OpensslSecureRandomNative.initSR();
         nativeEnabled = true;
       } catch (Throwable t) {
         LOG.error("Failed to load Openssl SecureRandom", t);
@@ -77,7 +77,7 @@ public class OpensslSecureRandom extends Random {
    */
   @Override
   public void nextBytes(byte[] bytes) {
-    if (!nativeEnabled || !nextRandBytes(bytes)) {
+    if (!nativeEnabled || !OpensslSecureRandomNative.nextRandBytes(bytes)) {
       fallback.nextBytes(bytes);
     }
   }
@@ -112,6 +112,5 @@ public class OpensslSecureRandom extends Random {
     return next >>> (numBytes * 8 - numBits);
   }
   
-  private native static void initSR();
-  private native boolean nextRandBytes(byte[] bytes); 
+  
 }

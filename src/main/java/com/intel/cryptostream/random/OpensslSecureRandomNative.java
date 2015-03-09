@@ -15,23 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intel.cryptostream;
+package com.intel.cryptostream.random;
 
-import java.nio.ByteBuffer;
+public class OpensslSecureRandomNative {
+  public native static void initSR();
 
-public class OpensslCipherNative {
-  public native static void initIDs();
-  
-  public native static long initContext(int alg, int padding);
-  
-  public native static long init(long context, int mode, int alg, int padding, 
-      byte[] key, byte[] iv);
-  
-  public native static int update(long context, ByteBuffer input, int inputOffset, 
-      int inputLength, ByteBuffer output, int outputOffset, int maxOutputLength);
-  
-  public native static int doFinal(long context, ByteBuffer output, int offset, 
-      int maxOutputLength);
-  
-  public native static void clean(long context);
+  public native static boolean nextRandBytes(byte[] bytes); 
 }
