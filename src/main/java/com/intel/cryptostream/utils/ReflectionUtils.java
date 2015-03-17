@@ -34,7 +34,7 @@ public class ReflectionUtils {
     CACHE_CLASSES = new WeakHashMap<ClassLoader, Map<String, WeakReference<Class<?>>>>();
 
   private static ClassLoader classLoader;
-  {
+  static {
     classLoader = Thread.currentThread().getContextClassLoader();
     if (classLoader == null) {
       classLoader = CryptoCodec.class.getClassLoader();
