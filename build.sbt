@@ -66,8 +66,6 @@ incOptions := incOptions.value.withNameHashing(true)
 libraryDependencies ++= Seq(
    "junit" % "junit" % "4.8.2" % "test",
    "org.codehaus.plexus" % "plexus-classworlds" % "2.4" % "test",
-   "org.xerial.java" % "xerial-core" % "2.1" % "test",
-   "org.xerial" % "xerial-core" % "3.2.3" % "test",
    "org.scalatest" % "scalatest_2.11" % "2.2.0" % "test",
    "org.osgi" % "org.osgi.core" % "4.3.0" % "provided",
    "com.novocode" % "junit-interface" % "0.10" % "test",

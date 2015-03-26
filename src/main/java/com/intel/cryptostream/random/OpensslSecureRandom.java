@@ -48,8 +48,7 @@ public class OpensslSecureRandom extends Random {
   private java.security.SecureRandom fallback = null;
   private static boolean nativeEnabled = false;
   static {
-    if (NativeCodeLoader.isNativeCodeLoaded() &&
-        NativeCodeLoader.buildSupportsOpenssl()) {
+    if (NativeCodeLoader.isNativeCodeLoaded()) {
       try {
         OpensslSecureRandomNative.initSR();
         nativeEnabled = true;

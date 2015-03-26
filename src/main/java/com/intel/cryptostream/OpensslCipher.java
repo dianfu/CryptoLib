@@ -79,9 +79,7 @@ public final class OpensslCipher {
   static {
     String loadingFailure = null;
     try {
-      if (!NativeCodeLoader.buildSupportsOpenssl()) {
-        loadingFailure = "build does not support openssl.";
-      } else {
+      if (NativeCodeLoader.isNativeCodeLoaded()) {
         OpensslCipherNative.initIDs();
       }
     } catch (Throwable t) {

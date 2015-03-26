@@ -18,10 +18,10 @@
                       http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.intel.crypto</groupId>
-  <artifactId>cryptolib</artifactId>
+  <artifactId>cryptostream</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>cryptolib</name>
+  <name>cryptostream</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>

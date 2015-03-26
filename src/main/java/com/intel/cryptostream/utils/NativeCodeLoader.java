@@ -262,11 +262,4 @@ public class NativeCodeLoader {
   public static boolean isNativeCodeLoaded() {
     return nativeCodeLoaded;
   }
-
-  /**
-   * Returns true only if this build was compiled with support for openssl.
-   */
-  public static native boolean buildSupportsOpenssl();
-
-  public static native String getLibraryName();
 }

@@ -86,7 +86,7 @@ static ENGINE * openssl_rand_init(void);
 static void openssl_rand_clean(ENGINE *eng, int clean_locks);
 static int openssl_rand_bytes(unsigned char *buf, int num);
 
-JNIEXPORT void JNICALL Java_com_intel_cryptostream_random_OpensslSecureRandom_initSR
+JNIEXPORT void JNICALL Java_com_intel_cryptostream_random_OpensslSecureRandomNative_initSR
     (JNIEnv *env, jclass clazz)
 {
   char msg[1000];
@@ -160,7 +160,7 @@ JNIEXPORT void JNICALL Java_com_intel_cryptostream_random_OpensslSecureRandom_in
   openssl_rand_init();
 }
 
-JNIEXPORT jboolean JNICALL Java_com_intel_cryptostream_random_OpensslSecureRandom_nextRandBytes___3B
+JNIEXPORT jboolean JNICALL Java_com_intel_cryptostream_random_OpensslSecureRandomNative_nextRandBytes___3B
     (JNIEnv *env, jobject object, jbyteArray bytes)
 {
   if (NULL == bytes) {

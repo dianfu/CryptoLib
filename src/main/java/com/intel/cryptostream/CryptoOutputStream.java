@@ -37,7 +37,7 @@ import com.google.common.base.Preconditions;
  * The underlying stream offset is maintained as state.
  */
 public class CryptoOutputStream extends FilterOutputStream {
-  private static final byte[] oneByteBuf = new byte[1];
+  private final byte[] oneByteBuf = new byte[1];
   private final CryptoCodec codec;
   private final Encryptor encryptor;
   private final int bufferSize;
@@ -118,7 +118,7 @@ public class CryptoOutputStream extends FilterOutputStream {
    * @throws IOException
    */
   @Override
-  public void write(byte[] b, int off, int len) throws IOException {
+  public synchronized void write(byte[] b, int off, int len) throws IOException {
     checkStream();
     if (b == null) {
       throw new NullPointerException();
@@ -205,14 +205,17 @@ public class CryptoOutputStream extends FilterOutputStream {
   }
   
   @Override
-  public void close() throws IOException {
+  public synchronized void close() throws IOException {
     if (closed) {
       return;
     }
     
-    super.close();
-    freeBuffers();
-    closed = true;
+    try {
+      super.close();
+      freeBuffers();
+    } finally {
+      closed = true;
+    }
   }
   
   /**
@@ -220,7 +223,7 @@ public class CryptoOutputStream extends FilterOutputStream {
    * underlying stream, then do the flush.
    */
   @Override
-  public void flush() throws IOException {
+  public synchronized void flush() throws IOException {
     checkStream();
     encrypt();
     super.flush();
